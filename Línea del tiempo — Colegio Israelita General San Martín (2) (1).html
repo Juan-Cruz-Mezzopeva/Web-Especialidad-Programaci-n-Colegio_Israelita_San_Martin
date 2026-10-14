@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#654520">
+  <title>Línea del tiempo | Colegio Israelita General San Martín</title>
+  <style>
+    :root{
+      --brown:#654520;--brown-light:#825B32;--blue:#6CBEC7;--blue-light:#81DAE3;
+      --cream:#fbf8f2;--ink:#30271e;--muted:#766b5f;--white:#fff;
+      --shadow:0 18px 45px rgba(66,44,23,.12);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--cream);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,a{font:inherit}
+    .site-header{position:sticky;top:0;z-index:5;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-bottom:1px solid rgba(101,69,32,.12)}
+    .nav-wrap{width:min(1160px,calc(100% - 40px));min-height:82px;margin:auto;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:13px;color:var(--brown);text-decoration:none;min-width:0}
+    .logo{width:172px;height:54px;flex:0 0 172px;display:flex;align-items:center;justify-content:center;background:#fff;border-radius:10px;overflow:hidden}
+    .logo img{display:block;width:100%;height:100%;object-fit:contain}
+    .brand-name{font-size:clamp(.76rem,1.5vw,.98rem);line-height:1.25;font-weight:800;letter-spacing:.035em;max-width:310px}
+    .nav-menu{display:flex;align-items:center;gap:8px}
+    .nav-link{border:0;background:transparent;text-decoration:none;color:#655b50;font-weight:700;font-size:.92rem;padding:11px 15px;border-radius:999px;cursor:pointer;transition:.2s}
+    .nav-link:hover,.nav-link.active{background:#e7f7f7;color:var(--brown)}
+    main{min-height:calc(100vh - 82px)}
+    .hero{position:relative;overflow:hidden;padding:74px 20px 80px;background:radial-gradient(ellipse at 80% 8%,#81DAE366,transparent 30%),radial-gradient(ellipse at 10% 90%,#6CBEC733,transparent 27%),var(--cream)}
+    .hero:before,.hero:after{content:"";position:absolute;border:1px solid #6CBEC733;border-radius:50%;pointer-events:none}
+    .hero:before{width:330px;height:330px;right:-180px;top:150px}.hero:after{width:230px;height:230px;left:-150px;top:50px}
+    .intro{text-align:center;max-width:760px;margin:0 auto 54px;position:relative;z-index:1}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--brown-light);font-weight:800;font-size:.76rem;letter-spacing:.15em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:24px;height:2px;background:var(--blue);border-radius:2px}
+    h1{font-size:clamp(2.25rem,6vw,4.5rem);line-height:.98;letter-spacing:-.055em;color:var(--brown);margin:17px 0 18px}
+    .intro p{font-size:clamp(1rem,2vw,1.15rem);line-height:1.7;color:var(--muted);max-width:620px;margin:0 auto}
+    .timeline-shell{max-width:1060px;margin:auto;position:relative;z-index:1}
+    .timeline{position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;padding:36px 0 0}
+    .timeline:before{content:"";position:absolute;left:5%;right:5%;top:55px;height:4px;background:linear-gradient(90deg,var(--brown),var(--brown-light),var(--blue),var(--blue-light));border-radius:5px}
+    .year-card{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:0}
+    .year-button{position:relative;z-index:1;width:42px;height:42px;border:5px solid var(--cream);border-radius:50%;background:var(--blue);box-shadow:0 0 0 2px var(--blue);cursor:pointer;transition:transform .2s,background .2s,box-shadow .2s}
+    .year-card:nth-child(-n+2) .year-button{background:var(--brown-light);box-shadow:0 0 0 2px var(--brown-light)}
+    .year-button:hover,.year-button:focus-visible{transform:scale(1.17);background:var(--brown);box-shadow:0 0 0 4px #65452030;outline:none}
+    .year-label{margin-top:16px;color:var(--brown);font-size:1.45rem;letter-spacing:-.035em;font-weight:850}
+    .year-caption{color:var(--muted);font-size:.8rem;margin-top:5px}
+    .year-open{margin-top:15px;border:1px solid #6545202b;border-radius:999px;padding:8px 12px;background:#fff;color:var(--brown);font-size:.8rem;font-weight:750;cursor:pointer;transition:.2s}
+    .year-open:hover{background:var(--brown);color:white;transform:translateY(-2px)}
+    .hint{display:flex;justify-content:center;align-items:center;gap:9px;margin:43px auto 0;color:var(--muted);font-size:.9rem;text-align:center}
+    .hint span{width:25px;height:25px;border-radius:50%;background:#dff5f5;color:var(--brown);display:grid;place-items:center;font-weight:900}
+    .content-section{padding:66px 20px 78px;background:#fff}
+    .content-inner{max-width:1000px;margin:auto}
+    .section-heading{text-align:center;margin-bottom:34px}
+    .section-heading h2{font-size:clamp(1.8rem,4vw,2.8rem);color:var(--brown);letter-spacing:-.045em;margin:12px 0}
+    .section-heading p{color:var(--muted);line-height:1.65;margin:0 auto;max-width:620px}
+    .learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .learning-card{padding:25px;border:1px solid #65452017;border-radius:20px;background:var(--cream);min-height:180px}
+    .learning-icon{width:45px;height:45px;border-radius:14px;background:#dff5f5;display:grid;place-items:center;font-size:1.35rem;margin-bottom:15px}
+    .learning-card h3{color:var(--brown);margin:0 0 8px;font-size:1.08rem}
+    .learning-card p{color:var(--muted);line-height:1.55;font-size:.93rem;margin:0}
+    .site-footer{background:var(--brown);color:#fff;text-align:center;padding:23px 18px;font-size:.85rem}
+    .site-footer strong{color:var(--blue-light)}
+    /* Vista individual de cada promoción */
+    .detail-view{min-height:calc(100vh - 82px);padding:54px 20px 80px;background:radial-gradient(ellipse at 90% 0%,#81DAE344,transparent 35%),var(--cream)}
+    .detail-inner{max-width:920px;margin:auto}
+    .back-button{display:inline-flex;align-items:center;gap:9px;border:1px solid #6545202b;background:#fff;color:var(--brown);font-weight:750;border-radius:999px;padding:11px 17px;cursor:pointer;box-shadow:0 5px 14px #6545200d}
+    .back-button:hover{background:var(--brown);color:#fff}
+    .detail-card{margin-top:28px;padding:clamp(25px,6vw,60px);background:#fff;border:1px solid #65452018;border-radius:28px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+    .detail-card:after{content:attr(data-year);position:absolute;right:-12px;top:-40px;font-size:clamp(8rem,25vw,15rem);font-weight:900;letter-spacing:-.1em;color:#6CBEC71b;line-height:1;pointer-events:none}
+    .detail-card>*{position:relative;z-index:1}
+    .detail-kicker{color:var(--brown-light);text-transform:uppercase;letter-spacing:.15em;font-size:.78rem;font-weight:850}
+    .detail-title{font-size:clamp(2.4rem,8vw,5.5rem);line-height:.98;color:var(--brown);letter-spacing:-.07em;margin:12px 0}
+    .detail-subtitle{font-size:1.15rem;color:var(--muted);line-height:1.65;max-width:620px}
+    .detail-divider{height:1px;background:#65452018;margin:30px 0}
+    .detail-columns{display:grid;grid-template-columns:1.2fr .8fr;gap:34px}
+    .detail-columns h3{color:var(--brown);margin:0 0 10px;font-size:1.12rem}
+    .detail-columns p{color:var(--muted);line-height:1.7;margin:0}
+    .focus-list{display:flex;flex-wrap:wrap;gap:9px;margin-top:14px}
+    .focus-tag{background:#e4f7f7;color:var(--brown);font-size:.84rem;font-weight:750;padding:9px 12px;border-radius:999px}
+    .placeholder-note{font-size:.87rem;color:#796f64;background:#faf7f1;border-left:3px solid var(--blue);padding:13px 15px;border-radius:0 9px 9px 0;line-height:1.55;margin-top:24px}
+    .hidden{display:none!important}
+    @media(max-width:760px){.nav-wrap{width:calc(100% - 28px);min-height:76px;gap:10px}.brand{gap:9px}.logo{width:135px;height:44px;flex:0 0 135px}.brand-name{max-width:220px;font-size:.69rem}.nav-menu{gap:2px}.nav-link{font-size:.79rem;padding:9px 9px}.hero{padding-top:58px}.timeline{grid-template-columns:repeat(6,minmax(100px,1fr));gap:8px;padding:36px 4px 12px;overflow-x:auto;scroll-snap-type:x mandatory}.timeline:before{display:block;left:6%;right:6%;top:55px}.year-card{scroll-snap-align:center}.year-button{width:34px;height:34px;border-width:4px}.year-label{margin-top:13px}.year-open{margin-top:11px}.learning-grid{grid-template-columns:1fr}.learning-card{min-height:unset}.detail-columns{grid-template-columns:1fr;gap:24px}}
+    @media(max-width:480px){.nav-wrap{align-items:flex-start;padding:12px 0;flex-direction:column}.brand-name{max-width:none;font-size:.72rem}.logo{width:125px;height:42px;flex-basis:125px}.nav-menu{width:100%;justify-content:flex-start}.nav-link{padding:7px 12px}.site-header{position:relative}.timeline{grid-template-columns:repeat(6,minmax(112px,1fr));gap:10px;padding-top:36px;overflow-x:auto}.timeline:before{display:block;top:53px;left:7%;right:7%}.year-card{padding:0 4px 14px;background:transparent;border:0;border-radius:0;box-shadow:none}.year-label{font-size:1.22rem}.year-caption{font-size:.71rem}.year-open{font-size:.73rem;padding:7px 9px}.hint{margin-top:30px;font-size:.82rem}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#inicio" aria-label="Colegio Israelita General San Martín, ir al inicio" data-nav="inicio">
+        <span class="logo"><img src="https://israelitasanmartin.edu.ar/wp-content/uploads/2025/07/Logotipo_Israelita_San_Martin-300x94.png" alt="Logo del Colegio Israelita General San Martín"></span>
+        <span class="brand-name">COLEGIO ISRAELITA<br>GENERAL SAN MARTÍN</span>
+      </a>
+      <nav class="nav-menu" aria-label="Navegación principal">
+        <button class="nav-link active" data-nav="inicio">Inicio</button>
+        <button class="nav-link" data-nav="aprendizaje">Aprendizaje</button>
+        <button class="nav-link" data-nav="promociones">Promociones</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div id="home-view">
+      <section class="hero" id="inicio">
+        <div class="intro">
+          <span class="eyebrow">Programación y robótica</span>
+          <h1>LÍNEA DEL TIEMPO</h1>
+          <p>Un recorrido por las promociones que vienen. Explora cada año y descubre los proyectos, ideas y aprendizajes que nos esperan.</p>
+        </div>
+        <div class="timeline-shell" id="promociones">
+          <div class="timeline" aria-label="Promociones desde 2027 hasta 2032">
+            <article class="year-card"><button class="year-button" data-year="2027" aria-label="Abrir promoción 2027"></button><div class="year-label">2027</div><div class="year-caption">Una nueva idea</div><button class="year-open" data-year="2027">Ver promoción <span aria-hidden="true">→</span></button></article>
+            <article class="year-card"><button class="year-button" data-year="2028" aria-label="Abrir promoción 2028"></button><div class="year-label">2028</div><div class="year-caption">Crear y explorar</div><button class="year-open" data-year="2028">Ver promoción <span aria-hidden="true">→</span></button></article>
+            <article class="year-card"><button class="year-button" data-year="2029" aria-label="Abrir promoción 2029"></button><div class="year-label">2029</div><div class="year-caption">Ideas en movimiento</div><button class="year-open" data-year="2029">Ver promoción <span aria-hidden="true">→</span></button></article>
+            <article class="year-card"><button class="year-button" data-year="2030" aria-label="Abrir promoción 2030"></button><div class="year-label">2030</div><div class="year-caption">Imaginar el futuro</div><button class="year-open" data-year="2030">Ver promoción <span aria-hidden="true">→</span></button></article>
+            <article class="year-card"><button class="year-button" data-year="2031" aria-label="Abrir promoción 2031"></button><div class="year-label">2031</div><div class="year-caption">Tecnología con propósito</div><button class="year-open" data-year="2031">Ver promoción <span aria-hidden="true">→</span></button></article>
+            <article class="year-card"><button class="year-button" data-year="2032" aria-label="Abrir promoción 2032"></button><div class="year-label">2032</div><div class="year-caption">El futuro lo hacemos</div><button class="year-open" data-year="2032">Ver promoción <span aria-hidden="true">→</span></button></article>
+          </div>
+          <div class="hint"><span>↗</span> Haz clic en un año para conocer esa promoción</div>
+        </div>
+      </section>
+      <section class="content-section" id="aprendizaje">
+        <div class="content-inner">
+          <div class="section-heading"><span class="eyebrow">Aprender haciendo</span><h2>¿Qué vamos a descubrir?</h2><p>La programación y la robótica convierten la curiosidad en proyectos reales. Cada promoción suma nuevas habilidades y nuevas formas de resolver desafíos.</p></div>
+          <div class="learning-grid">
+            <article class="learning-card"><div class="learning-icon" aria-hidden="true">⌘</div><h3>Programación</h3><p>Diseñamos instrucciones, exploramos el pensamiento lógico y creamos soluciones paso a paso.</p></article>
+            <article class="learning-card"><div class="learning-icon" aria-hidden="true">⚙</div><h3>Robótica</h3><p>Construimos, conectamos y ponemos a prueba ideas con sensores, mecanismos y código.</p></article>
+            <article class="learning-card"><div class="learning-icon" aria-hidden="true">✦</div><h3>Creatividad en equipo</h3><p>Colaboramos, experimentamos y mejoramos nuestros proyectos aprendiendo de cada intento.</p></article>
+          </div>
+        </div>
+      </section>
+      <footer class="site-footer">Hecho con curiosidad en <strong>COLEGIO ISRAELITA GENERAL SAN MARTÍN</strong></footer>
+    </div>
+
+    <section id="promotion-view" class="detail-view hidden" aria-live="polite">
+      <div class="detail-inner">
+        <button class="back-button" id="back-button"><span aria-hidden="true">←</span> Volver a la línea del tiempo</button>
+        <article class="detail-card" id="detail-card">
+          <div class="detail-kicker">Promoción · Programación y robótica</div>
+          <h1 class="detail-title" id="detail-title">Promoción 2027</h1>
+          <p class="detail-subtitle" id="detail-subtitle"></p>
+          <div class="detail-divider"></div>
+          <div class="detail-columns">
+            <div><h3>Un año para crear</h3><p id="detail-description"></p></div>
+            <div><h3>Enfoques posibles</h3><div class="focus-list" id="detail-tags"></div></div>
+          </div>
+          <p class="placeholder-note">Esta página es una plantilla para personalizar: pueden reemplazar el texto y los enfoques por los proyectos reales de cada promoción.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+  <script>
+    const promotions = {
+      2027:{subtitle:'El comienzo de un recorrido lleno de ideas, experimentos y descubrimientos.',description:'La promoción 2027 abre esta línea del tiempo con curiosidad y ganas de aprender. Aquí pueden presentar su proyecto destacado, contar cómo lo diseñaron y compartir qué problema quisieron resolver.',tags:['Primeros programas','Diseño de ideas','Trabajo en equipo']},
+      2028:{subtitle:'Un año para explorar nuevas herramientas y convertir ideas en prototipos.',description:'La promoción 2028 aprende probando: planifica, programa, construye y mejora. Añadan aquí una descripción de sus creaciones y los aprendizajes que quieren compartir.',tags:['Prototipos','Código creativo','Robótica']},
+      2029:{subtitle:'La imaginación se pone en movimiento con proyectos cada vez más interactivos.',description:'La promoción 2029 conecta programación y robótica para crear experiencias. Esta sección puede contar el desafío del año, el proceso de trabajo y los resultados alcanzados.',tags:['Sensores','Automatización','Colaboración']},
+      2030:{subtitle:'Diseñamos soluciones y exploramos cómo la tecnología puede ayudar a las personas.',description:'La promoción 2030 mira hacia adelante: investiga necesidades, desarrolla ideas y las transforma en soluciones. Reemplacen este texto con los detalles de sus proyectos.',tags:['Innovación','Diseño de soluciones','Tecnología']},
+      2031:{subtitle:'Tecnología con propósito: crear, compartir y mejorar nuestro entorno.',description:'La promoción 2031 combina creatividad y pensamiento crítico para enfrentar nuevos retos. Aquí pueden incluir una galería de proyectos, sus objetivos y los pasos que siguieron.',tags:['Impacto positivo','Programación','Robótica']},
+      2032:{subtitle:'El futuro lo hacemos en equipo: nuevas preguntas, posibilidades y proyectos.',description:'La promoción 2032 continúa el recorrido con nuevas ideas y desafíos. Completen esta página con el proyecto que los representa y una reflexión sobre lo que aprendieron.',tags:['Futuro','Creatividad','Nuevos desafíos']}
+    };
+    const home=document.getElementById('home-view');
+    const detail=document.getElementById('promotion-view');
+    function openPromotion(year){
+      const data=promotions[year]; if(!data)return;
+      document.getElementById('detail-title').textContent='Promoción '+year;
+      document.getElementById('detail-card').dataset.year=year;
+      document.getElementById('detail-subtitle').textContent=data.subtitle;
+      document.getElementById('detail-description').textContent=data.description;
+      document.getElementById('detail-tags').innerHTML=data.tags.map(tag=>'<span class="focus-tag">'+tag+'</span>').join('');
+      home.classList.add('hidden');detail.classList.remove('hidden');window.scrollTo({top:0,behavior:'smooth'});
+      history.pushState({year},'','?promocion='+year);
+    }
+    function showHome(updateHistory=true){detail.classList.add('hidden');home.classList.remove('hidden');if(updateHistory)history.pushState({},' ',location.pathname+location.hash);window.scrollTo({top:0,behavior:'smooth'});}
+    document.querySelectorAll('[data-year]').forEach(button=>button.addEventListener('click',()=>openPromotion(button.dataset.year)));
+    document.getElementById('back-button').addEventListener('click',()=>showHome());
+    document.querySelectorAll('[data-nav]').forEach(button=>button.addEventListener('click',()=>{
+      const target=button.dataset.nav;
+      if(!detail.classList.contains('hidden'))showHome(false);
+      document.querySelectorAll('.nav-link').forEach(link=>link.classList.toggle('active',link.dataset.nav===target));
+      const element=target==='inicio'?document.getElementById('inicio'):document.getElementById(target);
+      if(element)element.scrollIntoView({behavior:'smooth',block:'start'});
+    }));
+    window.addEventListener('popstate',()=>{
+      const year=new URLSearchParams(location.search).get('promocion');
+      if(year&&promotions[year])openPromotionWithoutHistory(year);else showHome(false);
+    });
+    function openPromotionWithoutHistory(year){const data=promotions[year];if(!data)return;document.getElementById('detail-title').textContent='Promoción '+year;document.getElementById('detail-card').dataset.year=year;document.getElementById('detail-subtitle').textContent=data.subtitle;document.getElementById('detail-description').textContent=data.description;document.getElementById('detail-tags').innerHTML=data.tags.map(tag=>'<span class="focus-tag">'+tag+'</span>').join('');home.classList.add('hidden');detail.classList.remove('hidden');window.scrollTo(0,0)}
+    const initialYear=new URLSearchParams(location.search).get('promocion');if(initialYear&&promotions[initialYear])openPromotionWithoutHistory(initialYear);
+  </script>
+</body>
+</html>

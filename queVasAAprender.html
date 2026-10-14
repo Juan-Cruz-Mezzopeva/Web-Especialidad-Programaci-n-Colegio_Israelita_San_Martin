@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Programación y Robótica - Especialidad</title>
+    <link rel="stylesheet" href="agus.css">
+    <!-- Google Fonts para un estilo tecnológico -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="tech-grid-bg"></div>
+
+    <main class="container">
+        <header class="header">
+            <div class="badge">&lt;/&gt; ESPECIALIDAD TECNOLÓGICA</div>
+            <h1 class="title">Qué vas a aprender</h1>
+            <p class="subtitle">Explora los saberes y tecnologías que dominarás a lo largo de tu trayecto escolar en Programación y Robótica.</p>
+        </header>
+
+        <section class="timeline-section">
+            <!-- 4TO AÑO -->
+            <div class="year-card" data-year="4">
+                <div class="card-glow"></div>
+                <div class="year-header">
+                    <span class="year-badge">04</span>
+                    <h2>Cuarto Año</h2>
+                </div>
+                <ul class="subjects-list">
+                    <li class="subject-item">
+                        <span class="subject-name">Programación</span>
+                        <button class="info-btn" data-subject="programacion" aria-label="Más información sobre Programación">?</button>
+                    </li>
+                    <li class="subject-item">
+                        <span class="subject-name">EIE</span>
+                        <button class="info-btn" data-subject="eie" aria-label="Más información sobre EIE">?</button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 5TO AÑO -->
+            <div class="year-card" data-year="5">
+                <div class="card-glow"></div>
+                <div class="year-header">
+                    <span class="year-badge">05</span>
+                    <h2>Quinto Año</h2>
+                </div>
+                <ul class="subjects-list">
+                    <li class="subject-item">
+                        <span class="subject-name">Desarrollo Web</span>
+                        <button class="info-btn" data-subject="desarrollo-web" aria-label="Más información sobre Desarrollo Web">?</button>
+                    </li>
+                    <li class="subject-item">
+                        <span class="subject-name">EIE</span>
+                        <button class="info-btn" data-subject="eie" aria-label="Más información sobre EIE">?</button>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 6TO AÑO -->
+            <div class="year-card" data-year="6">
+                <div class="card-glow"></div>
+                <div class="year-header">
+                    <span class="year-badge">06</span>
+                    <h2>Sexto Año</h2>
+                </div>
+                <ul class="subjects-list">
+                    <li class="subject-item">
+                        <span class="subject-name">IA</span>
+                        <button class="info-btn" data-subject="ia" aria-label="Más información sobre Inteligencia Artificial">?</button>
+                    </li>
+                    <li class="subject-item">
+                        <span class="subject-name">Domótica</span>
+                        <button class="info-btn" data-subject="domotica" aria-label="Más información sobre Domótica">?</button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- MODAL / VENTANA EMERGENTE -->
+    <div id="infoModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-glow"></div>
+            <button class="close-modal" aria-label="Cerrar modal">&times;</button>
+            <div class="modal-header">
+                <span id="modalCategory" class="modal-tag">MATERIA</span>
+                <h3 id="modalTitle">Título de la materia</h3>
+            </div>
+            <div class="modal-body">
+                <p id="modalDescription">Descripción detallada de lo que se aprenderá en esta materia.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-action close-modal-btn">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="agus.js"></script>
+</body>
+</html>

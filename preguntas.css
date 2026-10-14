@@ -1,0 +1,204 @@
+:root {
+    --col-dark-brown: #654520;
+    --col-med-brown: #825B32;
+    --col-turquoise: #6CBEC7;
+    --col-light-turquoise: #81DAE3;
+    --bg-deep: #0B0E14;
+    --card-bg: rgba(18, 24, 38, 0.7);
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: #e2e8f0;
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fondo con patrón de grilla tecnológico */
+.tech-grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(108, 190, 199, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 190, 199, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Cabecera */
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--col-light-turquoise);
+    background: rgba(129, 218, 227, 0.1);
+    border: 1px solid rgba(129, 218, 227, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 4vw, 3rem);
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(108, 190, 199, 0.3);
+}
+
+.subtitle {
+    font-size: 1.05rem;
+    color: #94a3b8;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Acordeón FAQ */
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.faq-item {
+    background: var(--card-bg);
+    border: 1px solid rgba(130, 91, 50, 0.4);
+    border-radius: 12px;
+    overflow: hidden;
+    backdrop-filter: blur(10px);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.faq-item:hover {
+    border-color: rgba(108, 190, 199, 0.5);
+    box-shadow: 0 5px 20px rgba(108, 190, 199, 0.1);
+}
+
+.faq-question {
+    width: 100%;
+    background: none;
+    border: none;
+    padding: 22px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: #ffffff;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.faq-question:hover {
+    color: var(--col-light-turquoise);
+}
+
+.faq-icon {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--col-light-turquoise);
+    transition: transform 0.3s ease;
+    min-width: 24px;
+    text-align: center;
+}
+
+.faq-item.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    padding: 0 25px;
+    background: rgba(11, 14, 20, 0.3);
+}
+
+.faq-item.active .faq-answer {
+    max-height: 250px;
+    padding: 0 25px 22px 25px;
+}
+
+.faq-answer p {
+    color: #cbd5e1;
+    line-height: 1.7;
+    font-size: 0.98rem;
+}
+
+/* Recuadro de Aviso de Egresados */
+.alumni-notice {
+    background: linear-gradient(135deg, rgba(101, 69, 32, 0.25), rgba(18, 24, 38, 0.85));
+    border: 1px solid var(--col-turquoise);
+    border-radius: 14px;
+    padding: 30px;
+    display: flex;
+    align-items: flex-start;
+    gap: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(108, 190, 199, 0.12);
+}
+
+.notice-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, var(--col-dark-brown), var(--col-turquoise), var(--col-light-turquoise));
+}
+
+.notice-icon {
+    font-size: 2.2rem;
+    background: rgba(108, 190, 199, 0.1);
+    padding: 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(108, 190, 199, 0.3);
+}
+
+.notice-content h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: #ffffff;
+    margin-bottom: 8px;
+    letter-spacing: 0.5px;
+}
+
+.notice-content p {
+    color: #cbd5e1;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

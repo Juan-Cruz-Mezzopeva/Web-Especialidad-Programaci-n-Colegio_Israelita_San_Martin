@@ -1,0 +1,314 @@
+:root {
+    --col-dark-brown: #654520;
+    --col-med-brown: #825B32;
+    --col-turquoise: #6CBEC7;
+    --col-light-turquoise: #81DAE3;
+    --bg-deep: #0B0E14;
+    --card-bg: rgba(18, 24, 38, 0.7);
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: #e2e8f0;
+    font-family: var(--font-body);
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* Fondo con patrón de grilla tecnológico */
+.tech-grid-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(108, 190, 199, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(108, 190, 199, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    z-index: -1;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Cabecera */
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.badge {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--col-light-turquoise);
+    background: rgba(129, 218, 227, 0.1);
+    border: 1px solid rgba(129, 218, 227, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+}
+
+.title {
+    font-family: var(--font-heading);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    text-shadow: 0 0 20px rgba(108, 190, 199, 0.3);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: #94a3b8;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* Sección de Tarjetas por Año */
+.timeline-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
+}
+
+.year-card {
+    background: var(--card-bg);
+    border: 1px solid rgba(130, 91, 50, 0.4);
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.year-card:hover {
+    border-color: var(--col-turquoise);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(108, 190, 199, 0.15);
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: radial-gradient(circle, rgba(108, 190, 199, 0.1) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.year-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(130, 91, 50, 0.3);
+}
+
+.year-badge {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--bg-deep);
+    background: var(--col-light-turquoise);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(129, 218, 227, 0.4);
+}
+
+.year-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    color: #ffffff;
+    letter-spacing: 1px;
+}
+
+/* Lista de Materias */
+.subjects-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.subject-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(101, 69, 32, 0.15);
+    border: 1px solid rgba(130, 91, 50, 0.3);
+    padding: 12px 18px;
+    border-radius: 10px;
+    transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.subject-item:hover {
+    background: rgba(108, 190, 199, 0.08);
+    border-color: rgba(108, 190, 199, 0.5);
+}
+
+.subject-name {
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    color: #f8fafc;
+    font-weight: 600;
+}
+
+/* Botones de Signo de Pregunta */
+.info-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--col-dark-brown);
+    border: 1px solid var(--col-turquoise);
+    color: var(--col-light-turquoise);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 10px rgba(101, 69, 32, 0.5);
+}
+
+.info-btn:hover {
+    background: var(--col-turquoise);
+    color: var(--bg-deep);
+    box-shadow: 0 0 15px var(--col-light-turquoise);
+    transform: scale(1.1);
+}
+
+/* Modal Estilo Tecnológico */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(11, 14, 20, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    padding: 20px;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: #121826;
+    border: 1px solid var(--col-turquoise);
+    border-radius: 16px;
+    width: 100%;
+    max-width: 500px;
+    padding: 30px;
+    position: relative;
+    box-shadow: 0 0 40px rgba(108, 190, 199, 0.25);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, var(--col-dark-brown), var(--col-turquoise), var(--col-light-turquoise));
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: none;
+    border: none;
+    color: #94a3b8;
+    font-size: 1.8rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: var(--col-light-turquoise);
+}
+
+.modal-tag {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.75rem;
+    color: var(--col-light-turquoise);
+    background: rgba(108, 190, 199, 0.1);
+    padding: 4px 10px;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+.modal-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    color: #ffffff;
+    margin-bottom: 15px;
+}
+
+.modal-body p {
+    color: #cbd5e1;
+    line-height: 1.7;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+.btn-action {
+    background: linear-gradient(135deg, var(--col-med-brown), var(--col-dark-brown));
+    color: #ffffff;
+    border: 1px solid var(--col-turquoise);
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    width: 100%;
+}
+
+.btn-action:hover {
+    background: var(--col-turquoise);
+    color: var(--bg-deep);
+    box-shadow: 0 0 15px rgba(129, 218, 227, 0.4);
+}
