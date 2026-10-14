@@ -166,89 +166,151 @@
   .commit .msg{color:var(--paper);font-size:15.5px;}
   .commit .author{font-family:'JetBrains Mono';font-size:12px;color:#8B96A3;text-align:right;}
 
-  /* ---------- GENEALOGY / TIMELINE ---------- */
+  /* ---------- LINEA DEL TIEMPO / PROMOCIONES ---------- */
   .timeline-shell{margin-top:64px;}
-  .timeline-scroll{overflow-x:auto;padding-bottom:14px;}
-  .timeline-track{
-    position:relative;display:flex;min-width:760px;padding:50px 10px 20px;
+  .timeline{
+    position:relative;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px;
+    padding:36px 0 0;
   }
-  .timeline-track::before{
-    content:"";position:absolute;left:0;right:0;top:60px;height:2px;background:var(--gold);
+  .timeline::before{
+    content:"";position:absolute;left:5%;right:5%;top:55px;height:4px;border-radius:4px;
+    background:linear-gradient(90deg,var(--gold),#C9A24E,var(--signal),#5FB3AC);
   }
-  .tnode{flex:1;position:relative;display:flex;flex-direction:column;align-items:center;cursor:pointer;}
-  .tnode .dot{
-    width:22px;height:22px;border-radius:50%;background:var(--paper);
-    border:2.5px solid var(--ink);position:relative;z-index:2;
-    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  .year-card{position:relative;text-align:center;display:flex;flex-direction:column;align-items:center;min-width:0;}
+  .year-button{
+    position:relative;z-index:1;width:42px;height:42px;border-radius:50%;cursor:pointer;
+    border:5px solid var(--paper);background:var(--signal);box-shadow:0 0 0 2px var(--signal);
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
   }
-  .tnode .dot::after{
-    content:"";position:absolute;inset:5px;border-radius:50%;background:var(--ink-soft);
-    opacity:0;transition:opacity .15s ease;
+  .year-card:nth-child(-n+2) .year-button{background:var(--gold);box-shadow:0 0 0 2px var(--gold);}
+  .year-button:hover,.year-button:focus-visible{transform:scale(1.17);background:var(--ink);box-shadow:0 0 0 4px rgba(27,36,48,.18);outline:none;}
+  .year-label{margin-top:16px;font-family:'Fraunces';font-size:24px;font-weight:600;color:var(--ink);}
+  .year-caption{font-size:13px;color:var(--ink-soft);margin-top:4px;}
+  .year-hash{font-family:'JetBrains Mono';font-size:11px;color:var(--paper-soft);margin-top:4px;}
+  .year-card.current .year-hash::after{content:" · HEAD";color:var(--signal);}
+  .year-open{
+    margin-top:14px;border:1px solid var(--line);border-radius:999px;padding:8px 13px;background:transparent;
+    color:var(--ink);font-family:'Inter';font-size:12.5px;font-weight:600;cursor:pointer;
+    transition:background .2s ease,color .2s ease,transform .2s ease;
   }
-  .tnode:hover .dot{transform:scale(1.12);}
-  .tnode.selected .dot{border-color:var(--signal);background:var(--signal);}
-  .tnode.selected .dot::after{opacity:0;}
-  .tnode .stub{
-    position:absolute;top:38px;width:2px;height:22px;background:var(--gold);z-index:1;
+  .year-open:hover{background:var(--ink);color:var(--paper);transform:translateY(-2px);}
+  .hint{display:flex;justify-content:center;align-items:center;gap:10px;margin-top:44px;color:var(--ink-soft);font-size:14px;text-align:center;}
+  .hint span{width:26px;height:26px;border-radius:50%;background:var(--paper-dark);color:var(--ink);display:grid;place-items:center;font-weight:700;}
+  .timeline-scroll{overflow-x:auto;padding-bottom:6px;}
+  @media(max-width:760px){
+    .timeline{min-width:700px;gap:8px;padding:36px 4px 12px;}
+    .year-button{width:34px;height:34px;border-width:4px;}
+    .year-label{font-size:20px;}
+    .year-caption{font-size:12px;}
   }
-  .tnode .ylabel{margin-top:14px;font-family:'Fraunces';font-size:19px;}
-  .tnode .glabel{font-family:'JetBrains Mono';font-size:11px;color:var(--ink-soft);margin-top:2px;}
-  .tnode.current .ylabel{color:var(--signal);}
-  .tnode.current .glabel::after{content:" · HEAD";color:var(--signal);}
 
-  .gen-card{
-    margin-top:36px;background:var(--ink);color:var(--paper);
-    padding:36px;border-radius:3px;position:relative;
-    border-left:3px solid var(--signal);
-    display:none;
+  /* ---------- QUE VAS A APRENDER ---------- */
+  .learn-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line-dark);border:1px solid var(--line-dark);margin-top:52px;}
+  @media(max-width:860px){.learn-grid{grid-template-columns:1fr;}}
+  .learn-card{background:var(--ink);padding:30px 28px;transition:background .2s ease;}
+  .learn-card:hover{background:var(--ink-2);}
+  .learn-head{display:flex;align-items:center;gap:14px;padding-bottom:16px;margin-bottom:20px;border-bottom:1px solid var(--line-dark);}
+  .learn-badge{font-family:'JetBrains Mono';font-size:15px;font-weight:600;color:var(--ink);background:var(--gold);padding:6px 10px;border-radius:2px;}
+  .learn-head h3{font-size:22px;color:var(--paper);}
+  .subjects{list-style:none;display:flex;flex-direction:column;gap:12px;}
+  .subject{
+    display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:12px 16px;border:1px solid var(--line-dark);background:rgba(255,255,255,.03);
+    transition:border-color .2s ease;
   }
-  .gen-card.show{display:block;animation:fadeUp .25s ease;}
-  @keyframes fadeUp{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
-  .gen-card .top-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap;}
-  .gen-card h3{font-size:24px;}
-  .gen-card .ghash{font-family:'JetBrains Mono';font-size:12.5px;color:var(--signal);margin-top:6px;}
-  .gen-card .summary{margin-top:16px;color:#C7CDD6;max-width:640px;}
-  .gen-card .proyecto{
-    margin-top:24px;padding:18px 20px;background:rgba(255,255,255,.04);border:1px solid var(--line-dark);
+  .subject:hover{border-color:var(--signal);}
+  .subject .name{font-family:'JetBrains Mono';font-size:14px;color:var(--paper);}
+  .info-btn{
+    width:30px;height:30px;border-radius:50%;flex-shrink:0;cursor:pointer;
+    background:transparent;border:1px solid var(--signal);color:var(--signal);
+    font-family:'JetBrains Mono';font-weight:600;font-size:14px;
+    transition:background .2s ease,color .2s ease,transform .2s ease;
   }
-  .gen-card .proyecto .lbl{font-family:'JetBrains Mono';font-size:10.5px;text-transform:uppercase;letter-spacing:.05em;color:var(--gold);}
-  .gen-card .proyecto h4{font-family:'Fraunces';font-size:18px;margin-top:6px;font-weight:500;}
-  .gen-card .proyecto p{color:#AEB8C2;margin-top:6px;font-size:14.5px;}
-  .gen-card .cta{margin-top:26px;}
+  .info-btn:hover,.info-btn:focus-visible{background:var(--signal);color:var(--ink);transform:scale(1.08);outline:none;}
 
-  /* ---------- DETAIL VIEW ---------- */
-  .detail-hero{background:var(--ink);color:var(--paper);padding:70px 0 60px;}
+  /* ---------- MODAL ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;z-index:1000;padding:20px;
+    background:rgba(15,22,32,.82);display:flex;align-items:center;justify-content:center;
+    opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;
+  }
+  .modal-overlay.active{opacity:1;visibility:visible;}
+  .modal-content{
+    position:relative;width:100%;max-width:520px;background:var(--ink);color:var(--paper);
+    border:1px solid var(--line-dark);border-left:3px solid var(--signal);padding:34px 30px 28px;
+    transform:translateY(16px);transition:transform .25s ease;
+  }
+  .modal-overlay.active .modal-content{transform:translateY(0);}
+  .modal-close{position:absolute;top:14px;right:16px;background:none;border:none;color:#8B96A3;font-size:26px;cursor:pointer;line-height:1;}
+  .modal-close:hover{color:var(--paper);}
+  .modal-tag{font-family:'JetBrains Mono';font-size:11px;color:var(--gold);text-transform:uppercase;letter-spacing:.06em;}
+  .modal-content h3{font-size:24px;margin-top:8px;}
+  .modal-content p{color:#C7CDD6;margin-top:14px;font-size:15px;}
+  .modal-content .btn{margin-top:24px;width:100%;justify-content:center;border:none;}
+
+  /* ---------- PREGUNTAS FRECUENTES ---------- */
+  .faq-list{margin-top:48px;border-top:1px solid var(--line);max-width:860px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-question{
+    width:100%;background:none;border:none;cursor:pointer;text-align:left;
+    display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0;
+    font-family:'Fraunces';font-size:19px;font-weight:500;color:var(--ink);
+  }
+  .faq-question:hover{color:var(--signal);}
+  .faq-icon{font-family:'JetBrains Mono';font-size:22px;color:var(--gold);min-width:24px;text-align:center;transition:transform .25s ease;}
+  .faq-item.active .faq-icon{transform:rotate(45deg);}
+  .faq-answer{max-height:0;overflow:hidden;transition:max-height .3s ease;}
+  .faq-item.active .faq-answer{max-height:300px;}
+  .faq-answer p{color:var(--ink-soft);padding:0 44px 24px 0;max-width:720px;}
+  .alumni-notice{
+    margin-top:44px;max-width:860px;display:flex;gap:20px;align-items:flex-start;
+    background:var(--ink);color:var(--paper);padding:28px 30px;border-left:3px solid var(--signal);
+  }
+  .alumni-notice .icon{
+    width:44px;height:44px;flex-shrink:0;border:1px solid var(--line-dark);border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono';color:var(--signal);
+  }
+  .alumni-notice h3{font-size:20px;}
+  .alumni-notice p{color:#AEB8C2;margin-top:8px;font-size:14.5px;}
+
+  /* ---------- DETALLE DE PROMOCION ---------- */
+  .detail-view{padding:56px 0 96px;}
   .backlink{
-    font-family:'JetBrains Mono';font-size:13px;color:var(--signal);cursor:pointer;
-    display:inline-flex;align-items:center;gap:8px;margin-bottom:28px;
+    font-family:'JetBrains Mono';font-size:13px;color:var(--signal);cursor:pointer;background:none;border:none;
+    display:inline-flex;align-items:center;gap:8px;
   }
-  .backlink:hover{color:var(--paper);}
-  .detail-hero .ghash{font-family:'JetBrains Mono';color:var(--signal);font-size:13px;margin-top:10px;}
-  .detail-hero h2{font-size:clamp(30px,4vw,46px);margin-top:10px;max-width:720px;}
-  .detail-hero .summary{color:#C7CDD6;max-width:640px;margin-top:18px;}
-  .detail-hero .proyecto{
-    margin-top:30px;padding:22px 24px;border:1px solid var(--line-dark);background:rgba(255,255,255,.03);
-    max-width:640px;
+  .backlink:hover{color:var(--ink);}
+  .detail-card{
+    margin-top:28px;background:var(--ink);color:var(--paper);padding:clamp(28px,6vw,60px);
+    border-left:3px solid var(--signal);position:relative;overflow:hidden;
   }
-  .detail-hero .proyecto .lbl{font-family:'JetBrains Mono';font-size:10.5px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;}
-  .detail-hero .proyecto h4{font-family:'Fraunces';font-size:19px;margin-top:6px;font-weight:500;}
-  .detail-hero .proyecto p{color:#AEB8C2;margin-top:8px;font-size:14.5px;}
-
-  .students{padding:80px 0;}
-  .students .kicker{margin-bottom:6px;}
-  .students h3{font-size:26px;max-width:520px;}
-  .student-grid{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
-  @media(max-width:760px){.student-grid{grid-template-columns:1fr;}}
-  .student-card{background:var(--paper);padding:28px 26px;}
-  .student-card .role{
-    font-family:'JetBrains Mono';font-size:11px;color:var(--signal);text-transform:uppercase;letter-spacing:.05em;
+  .detail-card::after{
+    content:attr(data-year);position:absolute;right:-10px;top:-36px;pointer-events:none;
+    font-family:'Fraunces';font-weight:700;font-size:clamp(120px,22vw,230px);line-height:1;
+    color:rgba(62,142,136,.12);letter-spacing:-.05em;
   }
-  .student-card h4{font-family:'Fraunces';font-size:20px;margin-top:8px;font-weight:600;}
-  .student-card p{color:var(--ink-soft);margin-top:10px;font-size:14.5px;}
-  .student-card .commit-line{
-    margin-top:14px;font-family:'JetBrains Mono';font-size:11.5px;color:var(--paper-soft);
-    padding-top:12px;border-top:1px dashed var(--line);
+  .detail-card > *{position:relative;z-index:1;}
+  .detail-card .ghash{font-family:'JetBrains Mono';color:var(--signal);font-size:13px;}
+  .detail-card h2{font-size:clamp(36px,6vw,64px);margin-top:10px;line-height:1.02;}
+  .detail-card .subtitle{color:#C7CDD6;max-width:620px;margin-top:16px;font-size:17px;}
+  .detail-divider{height:1px;background:var(--line-dark);margin:32px 0;}
+  .detail-columns{display:grid;grid-template-columns:1.2fr .8fr;gap:40px;}
+  @media(max-width:760px){.detail-columns{grid-template-columns:1fr;gap:28px;}}
+  .detail-columns h3{font-size:19px;margin-bottom:10px;}
+  .detail-columns p{color:#AEB8C2;font-size:15px;}
+  .focus-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;}
+  .focus-tag{font-family:'JetBrains Mono';font-size:12px;color:var(--gold);border:1px solid var(--gold);padding:5px 10px;border-radius:2px;}
+  .contact-box{margin-top:32px;padding:20px 22px;border:1px solid var(--line-dark);background:rgba(255,255,255,.03);}
+  .contact-box .lbl{font-family:'JetBrains Mono';font-size:10.5px;color:var(--gold);text-transform:uppercase;letter-spacing:.05em;}
+  .contact-box p{color:#AEB8C2;margin-top:8px;font-size:14.5px;}
+  .placeholder-note{
+    margin-top:24px;font-size:13.5px;color:#8B96A3;border-left:2px solid var(--signal);padding:10px 14px;
+    background:rgba(255,255,255,.02);
   }
+  .hidden{display:none !important;}
+  @media(max-width:760px){.navlinks{gap:16px;} .navlinks button{font-size:13px;}}
+  @media(max-width:640px){nav{flex-direction:column;align-items:flex-start;gap:12px;} .navlinks{flex-wrap:wrap;}}
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto;} *,*::before,*::after{transition:none !important;animation:none !important;}}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--ink);color:#8B96A3;padding:44px 0;font-size:13.5px;}
@@ -265,9 +327,11 @@
       <div class="name">Especialidad en Programación<small>Colegio Israelita General San Martín</small></div>
     </div>
     <div class="navlinks">
-      <button data-go="landing" class="current">Inicio</button>
-      <button data-go="genealogia">Genealogía</button>
-      <button onclick="document.getElementById('news-anchor').scrollIntoView({behavior:'smooth'})">Novedades</button>
+      <button data-nav="inicio" class="current">Inicio</button>
+      <button data-nav="aprendizaje">Aprendizaje</button>
+      <button data-nav="promociones">Promociones</button>
+      <button data-nav="news-anchor">Novedades</button>
+      <button data-nav="preguntas">Preguntas</button>
     </div>
   </nav>
 </header>
@@ -275,14 +339,14 @@
 <!-- ======================= LANDING ======================= -->
 <main id="view-landing" class="view active">
 
-  <section class="hero">
+  <section class="hero" id="inicio">
     <div class="inner">
-      <div class="eyebrow">5to año · orientación programación</div>
+      <div class="eyebrow">4to a 6to año · programación y robótica</div>
       <h1>Cada generación escribe <em>su propio commit</em> sobre el código de la anterior.</h1>
       <p class="sub">Una especialidad donde se aprende a programar construyendo software real, en equipo, y dejando algo para los que vienen después.</p>
       <div class="actions">
-        <div class="btn btn-primary" data-go="genealogia">Ver la genealogía →</div>
-        <div class="btn btn-ghost" onclick="document.getElementById('about-anchor').scrollIntoView({behavior:'smooth'})">Sobre la especialidad</div>
+        <div class="btn btn-primary" data-nav="promociones">Ver las promociones →</div>
+        <div class="btn btn-ghost" data-nav="aprendizaje">Qué vas a aprender</div>
       </div>
     </div>
   </section>
@@ -293,8 +357,8 @@
       <h2>Programar es el idioma que elegimos enseñar.</h2>
       <div class="about-grid">
         <div class="col">
-          <p>La especialidad en Programación del Colegio Israelita General San Martín acompaña a los estudiantes de 5to año en su último tramo antes de egresar, con un enfoque práctico: cada trimestre se construye un proyecto real, con planificación, versionado y entrega, tal como se trabaja en un equipo de desarrollo.</p>
-          <p>No enseñamos un lenguaje: enseñamos a pensar en sistemas. Lógica, estructuras de datos, bases de datos, control de versiones y trabajo colaborativo son la base común de todas las generaciones que pasaron por acá — y el motivo por el cual pueden verse unas a otras como una línea genealógica de proyectos.</p>
+          <p>La especialidad en Programación del Colegio Israelita General San Martín acompaña a los estudiantes de 4to a 6to año en su último tramo antes de egresar, con un enfoque práctico: cada trimestre se construye un proyecto real, con planificación, versionado y entrega, tal como se trabaja en un equipo de desarrollo.</p>
+          <p>No enseñamos un lenguaje: enseñamos a pensar en sistemas. Lógica, estructuras de datos, bases de datos, control de versiones y trabajo colaborativo son la base común de todas las generaciones que pasaron por acá — y el motivo por el cual cada promoción puede verse como un nuevo commit sobre la línea del tiempo de la especialidad.</p>
         </div>
         <div class="col">
           <div class="about-illustration">
@@ -343,11 +407,60 @@
             <figcaption>Un proyecto por trimestre, versionado como en cualquier equipo real</figcaption>
           </div>
           <div class="stat-row">
-            <div class="stat"><div class="num">6</div><div class="lbl">Generaciones egresadas</div></div>
-            <div class="stat"><div class="num">30+</div><div class="lbl">Proyectos entregados</div></div>
+            <div class="stat"><div class="num">3</div><div class="lbl">Años de trayecto</div></div>
+            <div class="stat"><div class="num">6</div><div class="lbl">Promociones en camino</div></div>
             <div class="stat"><div class="num">1</div><div class="lbl">Rama principal</div></div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= QUÉ VAS A APRENDER ======================= -->
+  <section class="block dark" id="aprendizaje">
+    <div class="wrap">
+      <div class="kicker">Qué vas a aprender</div>
+      <h2>Tres años, un mismo repositorio de saberes.</h2>
+      <p class="lead">Los saberes y tecnologías que vas a dominar a lo largo de tu trayecto en Programación y Robótica. Tocá el <span class="mono">?</span> de cada materia para ver de qué se trata.</p>
+
+      <div class="learn-grid">
+        <article class="learn-card">
+          <div class="learn-head"><span class="learn-badge">04</span><h3>Cuarto año</h3></div>
+          <ul class="subjects">
+            <li class="subject"><span class="name">Programación</span><button class="info-btn" data-subject="programacion" aria-label="Más información sobre Programación">?</button></li>
+            <li class="subject"><span class="name">EIE</span><button class="info-btn" data-subject="eie" aria-label="Más información sobre EIE">?</button></li>
+          </ul>
+        </article>
+        <article class="learn-card">
+          <div class="learn-head"><span class="learn-badge">05</span><h3>Quinto año</h3></div>
+          <ul class="subjects">
+            <li class="subject"><span class="name">Desarrollo Web</span><button class="info-btn" data-subject="desarrollo-web" aria-label="Más información sobre Desarrollo Web">?</button></li>
+            <li class="subject"><span class="name">EIE</span><button class="info-btn" data-subject="eie" aria-label="Más información sobre EIE">?</button></li>
+          </ul>
+        </article>
+        <article class="learn-card">
+          <div class="learn-head"><span class="learn-badge">06</span><h3>Sexto año</h3></div>
+          <ul class="subjects">
+            <li class="subject"><span class="name">IA</span><button class="info-btn" data-subject="ia" aria-label="Más información sobre Inteligencia Artificial">?</button></li>
+            <li class="subject"><span class="name">Domótica</span><button class="info-btn" data-subject="domotica" aria-label="Más información sobre Domótica">?</button></li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================= LÍNEA DEL TIEMPO ======================= -->
+  <section class="block" id="promociones">
+    <div class="wrap">
+      <div class="kicker">Línea del tiempo</div>
+      <h2>Las promociones que vienen, una rama principal.</h2>
+      <p class="lead">Un recorrido por las próximas promociones de la especialidad. Explorá cada año y descubrí los proyectos, ideas y aprendizajes que nos esperan.</p>
+
+      <div class="timeline-shell">
+        <div class="timeline-scroll">
+          <div class="timeline" id="timeline" aria-label="Promociones desde 2027 hasta 2032"><!-- generado por JS --></div>
+        </div>
+        <div class="hint"><span>↗</span> Hacé clic en un año para conocer esa promoción</div>
       </div>
     </div>
   </section>
@@ -417,236 +530,235 @@
     </div>
   </section>
 
-  <section class="block">
+  <!-- ======================= PREGUNTAS FRECUENTES ======================= -->
+  <section class="block" id="preguntas">
     <div class="wrap">
-      <div class="kicker">Genealogía</div>
-      <h2>Seis generaciones, una sola rama principal.</h2>
-      <p class="lead">Cada punto de la línea es una generación de la especialidad. Tocá un punto para ver un resumen y el proyecto de ese año.</p>
+      <div class="kicker">Preguntas frecuentes</div>
+      <h2>Lo que más nos preguntan.</h2>
+      <p class="lead">Resolvemos tus dudas principales acerca de la especialidad de Programación y Robótica.</p>
 
-      <div class="timeline-shell">
-        <div class="timeline-scroll">
-          <div class="timeline-track" id="timeline-track"><!-- nodes injected by JS --></div>
+      <div class="faq-list">
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Necesito tener conocimientos previos en programación para ingresar?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer"><p>No se requiere ningún conocimiento previo. Arrancamos desde las bases absolutas en cuarto año con lógica computacional y resolución de problemas, asegurando que todos los estudiantes partan desde el mismo nivel de aprendizaje.</p></div>
         </div>
-        <div id="gen-card-slot"></div>
-      </div>
-
-      <div style="margin-top:40px;">
-        <div class="btn btn-ghost" style="border-color:var(--line);color:var(--ink);" data-go="genealogia">Ver la genealogía completa →</div>
-      </div>
-    </div>
-  </section>
-
-</main>
-
-<!-- ======================= GENEALOGÍA (vista completa) ======================= -->
-<main id="view-genealogia" class="view">
-  <section class="block" style="padding-top:64px;">
-    <div class="wrap">
-      <span class="backlink" data-go="landing">← Volver al inicio</span>
-      <div class="kicker">Genealogía de la especialidad</div>
-      <h2>De la generación 2021 al HEAD actual.</h2>
-      <p class="lead">La especialidad como un árbol de commits: cada generación parte de lo que dejó la anterior. Elegí un punto de la línea para ver su resumen, o entrá a la generación completa para conocer a cada estudiante.</p>
-
-      <div class="timeline-shell">
-        <div class="timeline-scroll">
-          <div class="timeline-track" id="timeline-track-full"><!-- nodes injected by JS --></div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Qué tipo de proyectos se realizan durante la especialidad?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer"><p>A lo largo de los años vas a desarrollar proyectos prácticos reales: desde aplicaciones web interactivas y sistemas de software hasta prototipos robóticos con hardware físico (Arduino), domótica inteligente e implementaciones básicas de inteligencia artificial.</p></div>
         </div>
-        <div id="gen-card-slot-full"></div>
+        <div class="faq-item">
+          <button class="faq-question" aria-expanded="false">
+            <span>¿Cuál es la salida laboral o continuidad al egresar?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer"><p>Vas a estar preparado tanto para insertarte en el sector tecnológico IT como desarrollador o soporte técnico, como para continuar con estudios superiores en ingenierías, sistemas y carreras afines.</p></div>
+        </div>
       </div>
+
+      <div class="alumni-notice">
+        <div class="icon" aria-hidden="true">&gt;_</div>
+        <div>
+          <h3>¿Querés conocer experiencias reales de primera mano?</h3>
+          <p>En la página de cada promoción de la línea del tiempo vas a poder contactarte directamente con sus egresados para consultarles dudas, ver sus proyectos finales y conocer cómo vivieron su paso por la especialidad.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- ======================= DETALLE DE PROMOCIÓN ======================= -->
+<main id="view-promocion" class="view" aria-live="polite">
+  <section class="detail-view">
+    <div class="wrap">
+      <button class="backlink" id="back-button">← Volver a la línea del tiempo</button>
+      <article class="detail-card" id="detail-card">
+        <div class="ghash" id="detail-hash"></div>
+        <h2 id="detail-title"></h2>
+        <p class="subtitle" id="detail-subtitle"></p>
+        <div class="detail-divider"></div>
+        <div class="detail-columns">
+          <div><h3>Un año para crear</h3><p id="detail-description"></p></div>
+          <div><h3>Enfoques posibles</h3><div class="focus-list" id="detail-tags"></div></div>
+        </div>
+        <div class="contact-box">
+          <div class="lbl">Contacto con la promoción</div>
+          <p>Espacio reservado para que los egresados de esta promoción compartan cómo contactarlos y los links a sus proyectos finales.</p>
+        </div>
+        <p class="placeholder-note">Esta página es una plantilla para personalizar: pueden reemplazar el texto y los enfoques por los proyectos reales de cada promoción.</p>
+      </article>
     </div>
   </section>
 </main>
 
-<!-- ======================= DETALLE DE GENERACIÓN ======================= -->
-<main id="view-detalle" class="view">
-  <section class="detail-hero">
-    <div class="wrap">
-      <span class="backlink" data-go="genealogia">← Volver a la genealogía</span>
-      <div class="ghash" id="detail-hash"></div>
-      <h2 id="detail-title"></h2>
-      <p class="summary" id="detail-summary"></p>
-      <div class="proyecto">
-        <div class="lbl">Proyecto de la generación</div>
-        <h4 id="detail-proj-name"></h4>
-        <p id="detail-proj-desc"></p>
-      </div>
-    </div>
-  </section>
-  <section class="students">
-    <div class="wrap">
-      <div class="kicker">Contribuyentes</div>
-      <h3>Estudiantes de esta generación</h3>
-      <div class="student-grid" id="student-grid"><!-- injected by JS --></div>
-    </div>
-  </section>
-</main>
+<!-- ======================= MODAL DE MATERIAS ======================= -->
+<div id="info-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal-content">
+    <button class="modal-close" aria-label="Cerrar">&times;</button>
+    <div class="modal-tag" id="modal-category">Materia</div>
+    <h3 id="modal-title"></h3>
+    <p id="modal-description"></p>
+    <button class="btn btn-primary modal-ok">Entendido</button>
+  </div>
+</div>
 
 <footer>
   <div class="wrap">
     <div>Especialidad en Programación · Colegio Israelita General San Martín</div>
-    <div class="mono">rama: main · mockup v0.1</div>
+    <div class="mono">rama: main · mockup v0.2</div>
   </div>
 </footer>
 
 <script>
-const GENERACIONES = [
-  {
-    id: "2021", year: "2021", hash: "#a1c02e", label: "Rama inicial",
-    summary: "La primera camada de la especialidad. Sin generación anterior de la cual heredar código, definieron las convenciones de trabajo que las siguientes generaciones todavía usan.",
-    proyecto: { nombre: "Sistema de biblioteca escolar", desc: "Gestión de préstamos y devoluciones de libros de la biblioteca del colegio, con PHP y MySQL." },
-    estudiantes: [
-      { nombre: "Melina Kaplan", rol: "Backend", bio: "Diseñó el modelo de base de datos de préstamos y se encargó de las validaciones de stock." },
-      { nombre: "Iair Sabag", rol: "Frontend", bio: "Armó las pantallas de búsqueda de libros y el panel de la bibliotecaria." },
-      { nombre: "Daniela Roizman", rol: "Documentación", bio: "Escribió el primer manual de uso del sistema, todavía citado por generaciones posteriores." },
-      { nombre: "Tomás Weiss", rol: "QA", bio: "Probó cada flujo del sistema con la bibliotecaria real, ajustando casos borde." }
-    ]
-  },
-  {
-    id: "2022", year: "2022", hash: "#7e94b1", label: "Primer merge",
-    summary: "Heredaron las convenciones de 2021 y las llevaron a un proyecto con más usuarios simultáneos, incorporando control de horarios en tiempo real.",
-    proyecto: { nombre: "App de horarios y aulas", desc: "Consulta de horarios de clase y disponibilidad de aulas en tiempo real, pensada para celular." },
-    estudiantes: [
-      { nombre: "Brian Litvac", rol: "Frontend", bio: "Construyó la vista de horario semanal, priorizando que se lea bien en pantallas chicas." },
-      { nombre: "Sofía Nudelman", rol: "Backend", bio: "Modeló la relación entre cursos, aulas y turnos, evitando superposiciones." },
-      { nombre: "Ezequiel Farca", rol: "Backend", bio: "Implementó la sincronización de cambios de último momento en los horarios." },
-      { nombre: "Yael Brodsky", rol: "Diseño UX", bio: "Definió la identidad visual del proyecto, retomada parcialmente en 2023." }
-    ]
-  },
-  {
-    id: "2023", year: "2023", hash: "#3f6d28", label: "Refactor",
-    summary: "Reescribieron la base heredada con un stack más robusto, dando el salto a una arquitectura cliente-servidor separada.",
-    proyecto: { nombre: "Plataforma de mesas de examen", desc: "Inscripción y seguimiento de mesas de examen para estudiantes y preceptores, con Node, Express y PostgreSQL." },
-    estudiantes: [
-      { nombre: "Nicolás Averbuj", rol: "Backend", bio: "Diseñó la API REST de inscripciones y el manejo de permisos por rol." },
-      { nombre: "Camila Szpigiel", rol: "Frontend", bio: "Desarrolló el calendario interactivo de mesas de examen." },
-      { nombre: "Franco Dujovne", rol: "Base de datos", bio: "Migró los datos del sistema anterior sin perder el historial de horarios." },
-      { nombre: "Micaela Wainer", rol: "QA", bio: "Armó la primera batería de tests automatizados de la especialidad." }
-    ]
-  },
-  {
-    id: "2024", year: "2024", hash: "#c48a15", label: "Nueva arquitectura",
-    summary: "Salieron del navegador: llevaron el trabajo de la especialidad a un canal que usan todos los días, WhatsApp.",
-    proyecto: { nombre: "Bot de inscripción a talleres", desc: "Bot de WhatsApp que permite anotarse a talleres extracurriculares y recibir recordatorios automáticos." },
-    estudiantes: [
-      { nombre: "Ariel Kimelman", rol: "Backend", bio: "Integró la API de WhatsApp y diseñó el árbol de conversación del bot." },
-      { nombre: "Lucía Feldman", rol: "Datos", bio: "Armó el panel de reportes de inscripciones para los preceptores." },
-      { nombre: "Mateo Gorodisch", rol: "Backend", bio: "Implementó los recordatorios automáticos y el manejo de bajas." },
-      { nombre: "Abril Chame", rol: "Frontend", bio: "Diseñó los mensajes y respuestas rápidas del bot, cuidando el tono." }
-    ]
-  },
-  {
-    id: "2025", year: "2025", hash: "#e01f9a", label: "Integración continua",
-    summary: "Le sumaron una capa social a los proyectos: que la comunidad del colegio pueda ver y valorar el trabajo de la especialidad.",
-    proyecto: { nombre: "Portal de proyectos finales", desc: "Sitio donde se publican los proyectos finales de cada generación y la comunidad puede votarlos." },
-    estudiantes: [
-      { nombre: "Benjamín Rosenberg", rol: "Frontend", bio: "Construyó las galerías de proyectos y el sistema de votación." },
-      { nombre: "Martina Cohen Miller", rol: "Backend", bio: "Diseñó el sistema anti-fraude para evitar votos duplicados." },
-      { nombre: "Ian Slucki", rol: "Diseño UX", bio: "Rediseñó por completo la identidad visual, base del sitio actual." },
-      { nombre: "Julieta Beker", rol: "Contenido", bio: "Curó y escribió las descripciones de los proyectos de generaciones anteriores." }
-    ]
-  },
-  {
-    id: "2026", year: "2026", hash: "#0b55d4", label: "HEAD actual",
-    summary: "La generación actual, todavía en desarrollo. Están incorporando IA generativa como herramienta de orientación para los estudiantes que egresan.",
-    proyecto: { nombre: "Asistente de orientación vocacional con IA", desc: "Asistente conversacional que ayuda a los estudiantes de 5to año a explorar orientaciones de carrera según sus intereses." },
-    estudiantes: [
-      { nombre: "Naomi Bindler", rol: "Backend", bio: "Integra el modelo de lenguaje y diseña las conversaciones de orientación." },
-      { nombre: "Joaquín Presman", rol: "Frontend", bio: "Construye la interfaz de chat, pensada mobile-first." },
-      { nombre: "Valentina Kirzner", rol: "Datos", bio: "Arma el set de preguntas y perfiles vocacionales de referencia." },
-      { nombre: "Simón Waisman", rol: "QA", bio: "Prueba el asistente con estudiantes reales y ajusta el tono de las respuestas." }
-    ]
-  }
+/* ---------- Promociones (línea del tiempo) ---------- */
+const PROMOCIONES = [
+  { year:"2027", hash:"#a1c02e", caption:"Una nueva idea",
+    subtitle:"El comienzo de un recorrido lleno de ideas, experimentos y descubrimientos.",
+    description:"La promoción 2027 abre esta línea del tiempo con curiosidad y ganas de aprender. Aquí pueden presentar su proyecto destacado, contar cómo lo diseñaron y compartir qué problema quisieron resolver.",
+    tags:["Primeros programas","Diseño de ideas","Trabajo en equipo"] },
+  { year:"2028", hash:"#7e94b1", caption:"Crear y explorar",
+    subtitle:"Un año para explorar nuevas herramientas y convertir ideas en prototipos.",
+    description:"La promoción 2028 aprende probando: planifica, programa, construye y mejora. Añadan aquí una descripción de sus creaciones y los aprendizajes que quieren compartir.",
+    tags:["Prototipos","Código creativo","Robótica"] },
+  { year:"2029", hash:"#3f6d28", caption:"Ideas en movimiento",
+    subtitle:"La imaginación se pone en movimiento con proyectos cada vez más interactivos.",
+    description:"La promoción 2029 conecta programación y robótica para crear experiencias. Esta sección puede contar el desafío del año, el proceso de trabajo y los resultados alcanzados.",
+    tags:["Sensores","Automatización","Colaboración"] },
+  { year:"2030", hash:"#c48a15", caption:"Imaginar el futuro",
+    subtitle:"Diseñamos soluciones y exploramos cómo la tecnología puede ayudar a las personas.",
+    description:"La promoción 2030 mira hacia adelante: investiga necesidades, desarrolla ideas y las transforma en soluciones. Reemplacen este texto con los detalles de sus proyectos.",
+    tags:["Innovación","Diseño de soluciones","Tecnología"] },
+  { year:"2031", hash:"#e01f9a", caption:"Tecnología con propósito",
+    subtitle:"Tecnología con propósito: crear, compartir y mejorar nuestro entorno.",
+    description:"La promoción 2031 combina creatividad y pensamiento crítico para enfrentar nuevos retos. Aquí pueden incluir una galería de proyectos, sus objetivos y los pasos que siguieron.",
+    tags:["Impacto positivo","Programación","Robótica"] },
+  { year:"2032", hash:"#0b55d4", caption:"El futuro lo hacemos",
+    subtitle:"El futuro lo hacemos en equipo: nuevas preguntas, posibilidades y proyectos.",
+    description:"La promoción 2032 continúa el recorrido con nuevas ideas y desafíos. Completen esta página con el proyecto que los representa y una reflexión sobre lo que aprendieron.",
+    tags:["Futuro","Creatividad","Nuevos desafíos"] }
 ];
 
-function buildTimeline(container, cardSlot){
-  container.innerHTML = "";
-  GENERACIONES.forEach((g, i) => {
-    const node = document.createElement("div");
-    node.className = "tnode" + (i === GENERACIONES.length - 1 ? " current" : "");
-    node.dataset.id = g.id;
-    node.innerHTML = `
-      <div class="stub"></div>
-      <div class="dot"></div>
-      <div class="ylabel">${g.year}</div>
-      <div class="glabel">${g.label}</div>
-    `;
-    node.addEventListener("click", () => selectGen(g.id, container, cardSlot));
-    container.appendChild(node);
-  });
+function buildTimeline(container){
+  container.innerHTML = PROMOCIONES.map((p, i) => `
+    <article class="year-card${i === PROMOCIONES.length - 1 ? " current" : ""}">
+      <button class="year-button" data-year="${p.year}" aria-label="Abrir promoción ${p.year}"></button>
+      <div class="year-label">${p.year}</div>
+      <div class="year-caption">${p.caption}</div>
+      <div class="year-hash">${p.hash}</div>
+      <button class="year-open" data-year="${p.year}">Ver promoción <span aria-hidden="true">→</span></button>
+    </article>
+  `).join("");
+  container.querySelectorAll("[data-year]").forEach(b =>
+    b.addEventListener("click", () => openPromotion(b.dataset.year)));
 }
 
-function selectGen(id, container, cardSlot){
-  const g = GENERACIONES.find(x => x.id === id);
-  container.querySelectorAll(".tnode").forEach(n => n.classList.toggle("selected", n.dataset.id === id));
-
-  cardSlot.innerHTML = `
-    <div class="gen-card show" id="card-${id}">
-      <div class="top-row">
-        <div>
-          <h3>Generación ${g.year} · ${g.label}</h3>
-          <div class="ghash">${g.hash} · commit sobre la generación anterior</div>
-        </div>
-      </div>
-      <p class="summary">${g.summary}</p>
-      <div class="proyecto">
-        <div class="lbl">Proyecto del año</div>
-        <h4>${g.proyecto.nombre}</h4>
-        <p>${g.proyecto.desc}</p>
-      </div>
-      <div class="cta">
-        <div class="btn btn-primary" data-detail="${g.id}">Ver generación completa →</div>
-      </div>
-    </div>
-  `;
-  cardSlot.querySelector("[data-detail]").addEventListener("click", () => openDetail(g.id));
-}
-
-function openDetail(id){
-  const g = GENERACIONES.find(x => x.id === id);
-  document.getElementById("detail-hash").textContent = g.hash + " · Generación " + g.year;
-  document.getElementById("detail-title").textContent = "Generación " + g.year + " · " + g.label;
-  document.getElementById("detail-summary").textContent = g.summary;
-  document.getElementById("detail-proj-name").textContent = g.proyecto.nombre;
-  document.getElementById("detail-proj-desc").textContent = g.proyecto.desc;
-
-  const grid = document.getElementById("student-grid");
-  grid.innerHTML = "";
-  g.estudiantes.forEach(e => {
-    const card = document.createElement("div");
-    card.className = "student-card";
-    card.innerHTML = `
-      <div class="role">${e.rol}</div>
-      <h4>${e.nombre}</h4>
-      <p>${e.bio}</p>
-      <div class="commit-line">generación-${g.year} · ${g.hash}</div>
-    `;
-    grid.appendChild(card);
-  });
-
-  showView("detalle");
+function renderPromotion(year){
+  const p = PROMOCIONES.find(x => x.year === year);
+  if(!p) return false;
+  document.getElementById("detail-card").dataset.year = p.year;
+  document.getElementById("detail-hash").textContent = p.hash + " · Promoción · Programación y robótica";
+  document.getElementById("detail-title").textContent = "Promoción " + p.year;
+  document.getElementById("detail-subtitle").textContent = p.subtitle;
+  document.getElementById("detail-description").textContent = p.description;
+  document.getElementById("detail-tags").innerHTML = p.tags.map(t => `<span class="focus-tag">${t}</span>`).join("");
+  showView("promocion");
   window.scrollTo({top:0, behavior:"instant"});
+  return true;
+}
+
+function openPromotion(year){
+  if(renderPromotion(year)) history.pushState({year}, "", "?promocion=" + year);
 }
 
 function showView(name){
   document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
   document.getElementById("view-" + name).classList.add("active");
-  document.querySelectorAll(".navlinks button[data-go]").forEach(b => {
-    b.classList.toggle("current", b.dataset.go === name);
-  });
 }
 
-document.querySelectorAll("[data-go]").forEach(el => {
+function showHome(updateHistory = true){
+  showView("landing");
+  if(updateHistory) history.pushState({}, "", location.pathname);
+}
+
+document.getElementById("back-button").addEventListener("click", () => {
+  showHome();
+  document.getElementById("promociones").scrollIntoView({behavior:"instant"});
+});
+
+window.addEventListener("popstate", () => {
+  const year = new URLSearchParams(location.search).get("promocion");
+  if(!(year && renderPromotion(year))) showHome(false);
+});
+
+/* ---------- Navegación ---------- */
+document.querySelectorAll("[data-nav]").forEach(el => {
   el.addEventListener("click", () => {
-    showView(el.dataset.go);
-    window.scrollTo({top:0, behavior:"instant"});
+    const target = el.dataset.nav;
+    if(!document.getElementById("view-landing").classList.contains("active")) showHome();
+    document.querySelectorAll(".navlinks button").forEach(b => b.classList.toggle("current", b.dataset.nav === target));
+    document.getElementById(target).scrollIntoView({behavior:"smooth", block:"start"});
   });
 });
 
-buildTimeline(document.getElementById("timeline-track"), document.getElementById("gen-card-slot"));
-buildTimeline(document.getElementById("timeline-track-full"), document.getElementById("gen-card-slot-full"));
-// preselect current generation on both timelines
-selectGen(GENERACIONES[GENERACIONES.length-1].id, document.getElementById("timeline-track"), document.getElementById("gen-card-slot"));
-selectGen(GENERACIONES[GENERACIONES.length-1].id, document.getElementById("timeline-track-full"), document.getElementById("gen-card-slot-full"));
+/* ---------- Qué vas a aprender: modal de materias ---------- */
+const MATERIAS = {
+  "programacion": { title:"Programación (4to año)", category:"Fundamentos",
+    description:"Aprenderás las bases de la lógica computacional, algoritmos y estructuras de control. Te iniciarás en lenguajes de programación estructurada y orientada a objetos, desarrollando tus primeras aplicaciones y resolviendo problemas mediante código eficiente." },
+  "eie": { title:"EIE (Espacio de Investigación y Experimentación)", category:"Robótica y práctica",
+    description:"Espacio enfocado en el desarrollo de proyectos tecnológicos integrales. Aquí combinarás la teoría con la práctica mediante prototipado electrónico, uso de microcontroladores (como Arduino), sensores y actuadores para dar solución a problemas del mundo real." },
+  "desarrollo-web": { title:"Desarrollo Web (5to año)", category:"Tecnologías frontend y backend",
+    description:"Dominarás la creación de sitios y aplicaciones web modernas. Trabajarás con HTML5, CSS3 avanzado y JavaScript interactivo, además de frameworks y buenas prácticas de diseño responsivo y experiencia de usuario (UX/UI)." },
+  "ia": { title:"Inteligencia Artificial (6to año)", category:"Tecnologías avanzadas",
+    description:"Explorarás los conceptos fundamentales del aprendizaje automático (Machine Learning), procesamiento de datos y redes neuronales. Aprenderás a integrar modelos de IA en aplicaciones prácticas para automatizar tareas y crear sistemas inteligentes." },
+  "domotica": { title:"Domótica (6to año)", category:"Automatización y robótica",
+    description:"Te especializarás en la automatización de viviendas y edificios inteligentes. Diseñarás sistemas interconectados de control de iluminación, seguridad, climatización y electrodomésticos mediante interfaces móviles y redes de sensores IoT." }
+};
+
+const modal = document.getElementById("info-modal");
+function openModal(key){
+  const m = MATERIAS[key];
+  if(!m) return;
+  document.getElementById("modal-title").textContent = m.title;
+  document.getElementById("modal-category").textContent = m.category;
+  document.getElementById("modal-description").textContent = m.description;
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+  modal.querySelector(".modal-ok").focus();
+}
+function closeModal(){
+  modal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+document.querySelectorAll(".info-btn").forEach(b => b.addEventListener("click", () => openModal(b.dataset.subject)));
+modal.querySelectorAll(".modal-close, .modal-ok").forEach(b => b.addEventListener("click", closeModal));
+modal.addEventListener("click", e => { if(e.target === modal) closeModal(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape" && modal.classList.contains("active")) closeModal(); });
+
+/* ---------- Preguntas frecuentes (acordeón) ---------- */
+const faqItems = document.querySelectorAll(".faq-item");
+faqItems.forEach(item => {
+  const btn = item.querySelector(".faq-question");
+  btn.addEventListener("click", () => {
+    const willOpen = !item.classList.contains("active");
+    faqItems.forEach(other => {
+      other.classList.remove("active");
+      other.querySelector(".faq-question").setAttribute("aria-expanded", "false");
+    });
+    item.classList.toggle("active", willOpen);
+    btn.setAttribute("aria-expanded", String(willOpen));
+  });
+});
+
+/* ---------- Inicio ---------- */
+buildTimeline(document.getElementById("timeline"));
+const initialYear = new URLSearchParams(location.search).get("promocion");
+if(initialYear) renderPromotion(initialYear);
 </script>
 
 </body>
