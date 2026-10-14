@@ -62,6 +62,11 @@
     font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--gold);
     flex-shrink:0;
   }
+  .brand .logo{
+    width:140px;height:44px;flex-shrink:0;background:#fff;border-radius:6px;padding:4px 8px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .brand .logo img{width:100%;height:100%;object-fit:contain;}
   .brand .name{font-family:'Fraunces',serif;font-size:16px;line-height:1.2;}
   .brand .name small{display:block;font-family:'Inter';font-size:11px;color:#9AA5B1;font-weight:400;letter-spacing:.02em;}
   .navlinks{display:flex;gap:32px;align-items:center;}
@@ -139,32 +144,6 @@
   .stat{padding:22px 20px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);}
   .stat .num{font-family:'Fraunces';font-size:32px;color:var(--ink);}
   .stat .lbl{font-family:'JetBrains Mono';font-size:11.5px;color:var(--ink-soft);margin-top:4px;text-transform:uppercase;letter-spacing:.04em;}
-
-  /* ---------- NEWS / COMMIT LOG ---------- */
-  .commit-log{margin-top:52px;border-top:1px solid var(--line-dark);}
-  .commit{
-    display:grid;grid-template-columns:64px 96px 110px 1fr auto;gap:20px;align-items:center;
-    padding:22px 0;border-bottom:1px solid var(--line-dark);
-  }
-  @media(max-width:700px){.commit{grid-template-columns:48px 1fr;grid-template-areas:"thumb msg" "thumb meta";}
-    .commit .news-thumb{grid-area:thumb;} .commit .msg{grid-area:msg;}
-    .commit .hash,.commit .date,.commit .author{grid-area:meta;display:inline-block;margin-right:10px;}
-  }
-  .news-thumb{
-    width:56px;height:56px;border-radius:4px;background:rgba(255,255,255,.04);
-    border:1px solid var(--line-dark);display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-  }
-  .news-thumb svg{width:32px;height:32px;}
-  .commit .hash{font-family:'JetBrains Mono';font-size:13px;color:var(--signal);}
-  .commit .date{font-family:'JetBrains Mono';font-size:12.5px;color:#8B96A3;}
-  .commit .msg-tag{
-    display:inline-block;font-family:'JetBrains Mono';font-size:10.5px;padding:2px 7px;
-    border:1px solid var(--gold);color:var(--gold);border-radius:2px;margin-right:10px;
-    text-transform:uppercase;letter-spacing:.03em;
-  }
-  .commit .msg{color:var(--paper);font-size:15.5px;}
-  .commit .author{font-family:'JetBrains Mono';font-size:12px;color:#8B96A3;text-align:right;}
 
   /* ---------- LINEA DEL TIEMPO / PROMOCIONES ---------- */
   .timeline-shell{margin-top:64px;}
@@ -323,14 +302,14 @@
 <header class="site">
   <nav>
     <div class="brand">
-      <div class="mark">⌘</div>
+      <span class="logo"><img src="https://israelitasanmartin.edu.ar/wp-content/uploads/2025/07/Logotipo_Israelita_San_Martin-300x94.png" alt="Logo del Colegio Israelita General San Martín" onerror="this.parentNode.classList.add('hidden');document.querySelector('.brand .mark').classList.remove('hidden');"></span>
+      <div class="mark hidden">⌘</div>
       <div class="name">Especialidad en Programación<small>Colegio Israelita General San Martín</small></div>
     </div>
     <div class="navlinks">
       <button data-nav="inicio" class="current">Inicio</button>
       <button data-nav="aprendizaje">Aprendizaje</button>
       <button data-nav="promociones">Promociones</button>
-      <button data-nav="news-anchor">Novedades</button>
       <button data-nav="preguntas">Preguntas</button>
     </div>
   </nav>
@@ -465,70 +444,6 @@
     </div>
   </section>
 
-  <section class="block dark" id="news-anchor">
-    <div class="wrap">
-      <div class="kicker">Novedades</div>
-      <h2>Últimos commits de la especialidad</h2>
-      <p class="lead">Lo que se estuvo viendo, construyendo y presentando en los últimos meses.</p>
-      <div class="commit-log">
-        <div class="commit">
-          <div class="news-thumb">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Taller de IA generativa">
-              <path d="M6 8 h20 a2 2 0 0 1 2 2 v9 a2 2 0 0 1 -2 2 H14 l-5 4 v-4 H6 a2 2 0 0 1 -2 -2 v-9 a2 2 0 0 1 2 -2 Z" stroke="#B8892B" stroke-width="1.6"/>
-              <path d="M16 12 l1.4 3 3 1.2 -3 1.2 -1.4 3 -1.4 -3 -3 -1.2 3 -1.2 Z" fill="#3E8E88"/>
-            </svg>
-          </div>
-          <div class="hash">#f3a91c</div>
-          <div class="date">30 jun 2026</div>
-          <div><span class="msg-tag">feat</span><span class="msg">Taller de IA generativa aplicada a proyectos de 5to año</span></div>
-          <div class="author">gen-2026</div>
-        </div>
-        <div class="commit">
-          <div class="news-thumb">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Hackathon interno">
-              <path d="M10 6 h12 v6 a6 6 0 0 1 -12 0 Z" stroke="#B8892B" stroke-width="1.6"/>
-              <path d="M10 8 H6 a2 2 0 0 0 0 4 h1.4 M22 8 h4 a2 2 0 0 1 0 4 h-1.4" stroke="#B8892B" stroke-width="1.4"/>
-              <path d="M16 18 v4" stroke="#B8892B" stroke-width="1.6"/>
-              <path d="M12 26 h8 l-1.2 -3 h-5.6 Z" fill="#3E8E88"/>
-            </svg>
-          </div>
-          <div class="hash">#9d2e77</div>
-          <div class="date">14 may 2026</div>
-          <div><span class="msg-tag">event</span><span class="msg">Hackathon interno de 24hs — ganó una app de reciclaje escolar</span></div>
-          <div class="author">gen-2026</div>
-        </div>
-        <div class="commit">
-          <div class="news-thumb">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Migración a React y TypeScript">
-              <ellipse cx="16" cy="16" rx="11" ry="4.2" stroke="#3E8E88" stroke-width="1.5"/>
-              <ellipse cx="16" cy="16" rx="11" ry="4.2" stroke="#3E8E88" stroke-width="1.5" transform="rotate(60 16 16)"/>
-              <ellipse cx="16" cy="16" rx="11" ry="4.2" stroke="#3E8E88" stroke-width="1.5" transform="rotate(120 16 16)"/>
-              <circle cx="16" cy="16" r="2.6" fill="#B8892B"/>
-            </svg>
-          </div>
-          <div class="hash">#6b40aa</div>
-          <div class="date">2 abr 2026</div>
-          <div><span class="msg-tag">refactor</span><span class="msg">Migración de los proyectos de práctica a React + TypeScript</span></div>
-          <div class="author">docentes</div>
-        </div>
-        <div class="commit">
-          <div class="news-thumb">
-            <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Guía de Git y GitHub">
-              <path d="M6 8 a2 2 0 0 1 2 -2 h7 v20 H8 a2 2 0 0 1 -2 -2 Z" stroke="#B8892B" stroke-width="1.6"/>
-              <path d="M26 8 a2 2 0 0 0 -2 -2 h-7 v20 h7 a2 2 0 0 0 2 -2 Z" stroke="#B8892B" stroke-width="1.6"/>
-              <circle cx="16" cy="20" r="1.6" fill="#3E8E88"/>
-              <path d="M16 20 v-6" stroke="#3E8E88" stroke-width="1.4"/>
-              <circle cx="16" cy="12" r="1.6" fill="#3E8E88"/>
-            </svg>
-          </div>
-          <div class="hash">#1c8f02</div>
-          <div class="date">10 mar 2026</div>
-          <div><span class="msg-tag">docs</span><span class="msg">Nueva guía introductoria de Git y GitHub para primer trimestre</span></div>
-          <div class="author">docentes</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ======================= PREGUNTAS FRECUENTES ======================= -->
   <section class="block" id="preguntas">
